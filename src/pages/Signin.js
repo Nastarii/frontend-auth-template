@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Signin() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [ip, setIp] = useState("");
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value);
@@ -15,8 +16,26 @@ function Signin() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Add your login logic here
+        const signinData = {
+          username: username,
+          password: password,
+          ip:ip
+        }
+        console.log(signinData)
+        /* fetch('http://localhost:3000/sign/in', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(signinData),
+        }) */
     };
+
+    useEffect(() => {
+      fetch('https://api.ipify.org?format=json')
+        .then(results => results.json())
+        .then(data => setIp(data.ip))
+    }, [])
 
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
