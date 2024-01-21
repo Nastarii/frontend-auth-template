@@ -85,12 +85,11 @@ function Signin() {
       <div>
         { loading ?
           <img src="loading-spinner.gif" alt="Loader"></img>:
-          <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <img src="background.png" alt="Background" className='absolute h-screen w-screen '></img>
-            <form className="bg-white p-8 rounded shadow-md max-w-md z-10" onSubmit={handleSubmit}>
-
+          <div className="flex items-center justify-center min-h-screen bg-white">
+            <form className="bg-white p-8 rounded shadow-lg max-w-md z-10 flex flex-col items-start" onSubmit={handleSubmit}>
+              <h3 className="text-2xl text-gray-800 font-bold mb-4">Sign In</h3>
               <div className="mb-4">
-                <label htmlFor="usercredential" className="block text-gray-700">Username or Email:</label>
+                <label htmlFor="usercredential" className="block text-gray-700 flex self-start">Username or Email:</label>
                 <input
                   type="text"
                   id="usercredential"
@@ -101,7 +100,7 @@ function Signin() {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="password" className="block text-gray-700">Password:</label>
+                <label htmlFor="password" className="block text-gray-700 flex self-start">Password:</label>
                 <input
                   type="password"
                   id="password"
@@ -111,16 +110,29 @@ function Signin() {
                 />
               </div>
 
+              <div className="mb-4 flex">
+                <input
+                  type="checkbox"
+                  id="remember"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  className="accent-blue-500"
+                />
+                <label htmlFor="remember" className="ml-2 text-gray-700 text-sm flex">Remember me</label>
+              </div>
+
               <button
                 type="submit"
-                className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300"
+                className="w-full bg-blue-400 text-white py-2 px-4 rounded-full hover:bg-blue-500 focus:outline-none focus:ring focus:border-blue-300"
               >
                 Sign in
               </button>
-              <p className={status ? 'text-green-500 m-3': 'text-red-500 m-3'}>{userResponse ? userResponse:''}</p>
-              {resendEmailButton && <div className='text-red-500 underline cursor-pointer' onClick={handleResendEmail}> Resend Confirmation Email </div>}
-              <p className='text-gray-700 mt-3'> Doesn't have account yet? <Link to="/signup"><p className='underline text-gray-800' >Create an Account</p></Link></p>
-              <p className='text-gray-700 mt-3'> Forgot your password? <Link to="/recoverPassword"><p className='underline text-gray-800' >Click Here to recover it</p></Link></p>
+              <Link to="/recoverPassword" className='text-gray-700 mt-3 flex self-end underline'>
+                Forgot your password?
+              </Link>
+              <p className={status ? 'text-green-500 m-3': 'text-red-500 mt-3'}>{userResponse ? userResponse:''}</p>
+              {resendEmailButton && <div className='text-red-500 underline cursor-pointer mb-3' onClick={handleResendEmail}> Resend Confirmation Email </div>}
+              <p className='text-gray-700 mt-3'> Don't you have an account? <Link to="/signup"><p className='underline text-gray-800' >Create here</p></Link></p>
           </form>
         </div>
         }
