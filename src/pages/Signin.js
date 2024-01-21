@@ -20,15 +20,15 @@ function Signin() {
           username: username,
           password: password,
           ip:ip
-        }
-        console.log(signinData)
-        /* fetch('http://localhost:3000/sign/in', {
+        };
+
+        fetch('http://localhost:3000/sign/in', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(signinData),
-        }) */
+        });
     };
 
     useEffect(() => {
@@ -39,7 +39,7 @@ function Signin() {
 
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <img src="background.png" className='absolute h-screen w-screen '></img>
+        <img src="background.png" alt="Background" className='absolute h-screen w-screen '></img>
         <form className="bg-white p-8 rounded shadow-md max-w-md z-10" onSubmit={handleSubmit}>
 
           <div className="mb-4">

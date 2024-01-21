@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function Signup() {
-  const [ip, setIp] = useState("");
+  const [loading, setLoading] = useState(false);
   const [age, setAge] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
   const [password, setPassword] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -12,13 +14,22 @@ function Signup() {
   const [companyName, setCompanyName] = useState('');
 
   const handleNameChange = (e) => {
-      setName(e.target.value);
+    setName(e.target.value);
   }
   const handleLastNameChange = (e) => {
-      setLastName(e.target.value);
+    setLastName(e.target.value);
   }
+
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
+  }
+
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+  }
+
   const handleUsernameChange = (e) => {
-      setUsername(e.target.value);
+    setUsername(e.target.value);
   }
   const handleAgeChange = (e) => {
     var today = new Date();
@@ -32,41 +43,58 @@ function Signup() {
     setAge(age);
   }
   const handleCompanyNameChange = (e) => {
-      setCompanyName(e.target.value);
+    setCompanyName(e.target.value);
   }
 
   const handleEmailChange = (e) => {
-      setEmail(e.target.value);
+    setEmail(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
-      setPassword(e.target.value);
+    setPassword(e.target.value);
   };
 
   const handleSubmit = (e) => {
-      e.preventDefault();
-      const registerData = {
-        name: name,
-        lastName: lastName,
-        username: username,
-        age: age,
-        companyName: companyName,
-        email: email,
-        password: password,
-        ip:ip
+    setLoading(true);
+    e.preventDefault();
+    const registerData = {
+      name: name,
+      lastName: lastName,
+      address: address,
+      age: age,
+      phone: phone,
+      companyName: companyName,
+      username: username,
+      email: email,
+      password: password
+    }
+    
+    fetch('http://127.0.0.1:3000/register/in', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin':'*',
+      },
+      body: JSON.stringify(registerData),
+    }).then(response => response.json()
+    ).then(data => {
+      console.log(data);
+      if (data.status === "success") {
+        alert("User successfully registered!");
+      } else {
+        alert("Error registering user!");
       }
-      
+    }).catch((error) => {
+      console.error('Error:', error);
+    });
+    setLoading(false);
   };
 
-  useEffect(() => {
-    fetch('https://api.ipify.org?format=json')
-      .then(results => results.json())
-      .then(data => setIp(data.ip))
-  }, [])
-
   return (
+    <div>
+    {loading ? <img src="loading-spinner.gif" alt="Loader"></img>:
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <img src="background.png" className='absolute h-screen w-screen '></img>
+      <img src="background.png" alt="Background" className='absolute h-screen w-screen '></img>
       <form className="bg-white p-8 rounded shadow-md max-w-md z-10" onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
@@ -99,6 +127,28 @@ function Signup() {
             id="username"
             value={username}
             onChange={handleUsernameChange}
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="address" className="block text-gray-700">Address:</label>
+          <input
+            type="text"
+            id="address"
+            value={address}
+            onChange={handleAddressChange}
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="phone" className="block text-gray-700">Phone Number:</label>
+          <input
+            type="number"
+            id="phone"
+            value={phone}
+            onChange={handlePhoneChange}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
           />
         </div>
@@ -154,7 +204,8 @@ function Signup() {
           Sign Up
         </button>
       </form>
-    </div>
+    </div>}
+  </div>
   );
 };
 

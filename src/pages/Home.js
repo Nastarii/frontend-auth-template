@@ -3,7 +3,7 @@ import React from 'react';
 function Home() {
     return (
         <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
-            <img src="background.png" className='absolute h-screen w-screen '></img>
+            <img src="background.png" alt="Background" className='absolute h-screen w-screen '></img>
             <div className='w-6/12 flex flex-col items-center justify-center z-10'>
                 <img src="catapult.gif" alt="Index gif" />
                 <h1 className="text-4xl font-light text-blue-800 mb-4">Congratulations! Your authentication app is now installed and ready to be launched!</h1>
@@ -13,7 +13,7 @@ function Home() {
             {/* About Us Section */}
             <section className=" py-10 z-10">
                 <div className="container mx-auto flex justify-around">
-                <a href="https://github.com/Nastarii/auth" target="_blank">    
+                <a href="https://github.com/Nastarii/auth" target="_blank" rel="noreferrer">    
                     {/* Documentation Card */}
                     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
                         <div className="px-6 py-4">
