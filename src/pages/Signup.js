@@ -88,12 +88,12 @@ function Signup() {
   return (
     <div>
     {loading ? <img src="loading-spinner.gif" alt="Loader"></img>:
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <img src="background.png" alt="Background" className='absolute h-screen w-screen '></img>
-      <form className="bg-white p-8 rounded shadow-md max-w-md z-10" onSubmit={handleSubmit}>
+    <div className="flex items-start justify-center min-h-screen bg-white pt-20">
+      <form className="bg-white p-8 rounded shadow-lg max-w-md z-10 flex flex-col items-start" onSubmit={handleSubmit}>
+        <h3 className="text-2xl text-gray-800 font-bold mb-4">Sign Up</h3>
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
-            <label htmlFor="name" className="block text-gray-700">First Name:</label>
+            <label htmlFor="name" className="block text-gray-700 flex self-start">First Name:</label>
             <input
               type="text"
               id="name"
@@ -104,7 +104,7 @@ function Signup() {
           </div>
 
           <div>
-            <label htmlFor="lastName" className="block text-gray-700">Last Name:</label>
+            <label htmlFor="lastName" className="block text-gray-700 flex self-start">Last Name:</label>
             <input
               type="text"
               id="lastName"
@@ -115,8 +115,8 @@ function Signup() {
           </div>
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="username" className="block text-gray-700">Username:</label>
+        <div className="w-full mb-4">
+          <label htmlFor="username" className="block text-gray-700 flex self-start">Username:</label>
           <input
             type="text"
             id="username"
@@ -126,8 +126,8 @@ function Signup() {
           />
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="address" className="block text-gray-700">Address:</label>
+        <div className="w-full mb-4">
+          <label htmlFor="address" className="block text-gray-700 flex self-start">Address:</label>
           <input
             type="text"
             id="address"
@@ -137,30 +137,31 @@ function Signup() {
           />
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="phone" className="block text-gray-700">Phone Number:</label>
-          <input
-            type="number"
-            id="phone"
-            value={phone}
-            onChange={handlePhoneChange}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-          />
-        </div>
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label htmlFor="phone" className="block text-gray-700 flex self-start">Phone Number:</label>
+            <input
+              type="number"
+              id="phone"
+              value={phone}
+              onChange={handlePhoneChange}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            />
+          </div>
 
-        <div className="mb-4">
-          <label htmlFor="bornDate" className="block text-gray-700">Date of Birth:</label>
-          <input
-            type="date"
-            id="bornDate"
-            value={bornDate}
-            onChange={handleAgeChange}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-          />
+          <div>
+            <label htmlFor="bornDate" className="block text-gray-700 flex self-start">Date of Birth:</label>
+            <input
+              type="date"
+              id="bornDate"
+              value={bornDate}
+              onChange={handleAgeChange}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            />
+          </div>
         </div>
-
-        <div className="mb-4">
-          <label htmlFor="companyName" className="block text-gray-700">Company Name:</label>
+        <div className="w-full mb-4">
+          <label htmlFor="companyName" className="block text-gray-700 flex self-start">Company Name:</label>
           <input
             type="text"
             id="companyName"
@@ -170,8 +171,8 @@ function Signup() {
           />
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700">Email:</label>
+        <div className="w-full mb-4">
+          <label htmlFor="email" className="block text-gray-700 flex self-start">Email:</label>
           <input
             type="email"
             id="email"
@@ -181,8 +182,8 @@ function Signup() {
           />
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-gray-700">Password:</label>
+        <div className="w-full mb-4">
+          <label htmlFor="password" className="block text-gray-700 flex self-start">Password:</label>
           <input
             type="password"
             id="password"

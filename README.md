@@ -12,6 +12,10 @@ Sign in Page
 
 ![Alt text](docs/imgs/signin-page.png)
 
+Sign Up Page
+
+![Alt text](docs/imgs/signup-page.png)
+
 ## Available Scripts
 
 In the project directory, you can run:
