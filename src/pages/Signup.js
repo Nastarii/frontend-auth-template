@@ -54,7 +54,7 @@ function Signup() {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
     const registerData = {
@@ -69,24 +69,19 @@ function Signup() {
       password: password
     }
     
-    fetch('http://127.0.0.1:3000/register/in', {
+    const response = await fetch('http://127.0.0.1:3000/register/in', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin':'*',
       },
       body: JSON.stringify(registerData),
-    }).then(response => response.json()
-    ).then(data => {
-      console.log(data);
-      if (data.status === "success") {
-        alert("User successfully registered!");
-      } else {
-        alert("Error registering user!");
-      }
-    }).catch((error) => {
-      console.error('Error:', error);
     });
+    const responseData = await response.json();
+    if (response.status === 200) {
+      localStorage.setItem('token', responseData.token);
+    }
+    console.log(responseData.msg);
     setLoading(false);
   };
 
