@@ -53,7 +53,8 @@ function RecoverPassword() {
       const responseData = await response.json();
 
       if (response.status === 200) {
-        //localStorage.setItem('token', responseData.token);
+        console.log(responseData.token);
+        localStorage.setItem('token', responseData.token);
         setStatus(true);
       } 
       
@@ -65,19 +66,21 @@ function RecoverPassword() {
 
       setUserResponse(responseData.msg);
       setLoading(false);
+      setTimeout(() => {
+        if (response.status === 200) {
+          window.location.href = '/activationCode';
+        }
+      }, 1000);
     };
 
 
     return (
       <div>
-        { loading ?
-          <img src="loading-spinner.gif" alt="Loader"></img>:
-          <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <img src="background.png" alt="Background" className='absolute h-screen w-screen '></img>
+          <div className="flex items-center justify-center min-h-screen bg-white">
             <form className="bg-white p-8 rounded shadow-md max-w-md z-10" onSubmit={handleSubmit}>
-
+              <h3 className="text-2xl text-gray-800 font-bold mb-4 flex self-start">Forgot Password</h3>
               <div className="mb-4">
-                <label htmlFor="email" className="block text-gray-700">Email:</label>
+                <label htmlFor="email" className="block text-gray-700 flex self-start">Email:</label>
                 <input
                   type="text"
                   id="email"
@@ -89,15 +92,17 @@ function RecoverPassword() {
 
               <button
                 type="submit"
-                className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300"
+                className="w-full bg-blue-400 text-white py-2 px-4 rounded-full hover:bg-blue-500 focus:outline-none focus:ring focus:border-blue-300 flex items-center justify-center"
               >
-                RecoverPassword
+                { loading ?
+                  <img src="loading-spinner.gif" className='w-8 h-8' alt="Loader"></img>:
+                  "Recover"
+                }
               </button>
-              <p className={status ? 'text-green-500 m-3': 'text-red-500 m-3'}>{userResponse ? userResponse:''}</p>
+              <p className={status ? 'text-green-500 m-3': 'text-red-500 m-3'}>{userResponse}</p>
               {resendEmailButton && <div className='text-red-500 underline cursor-pointer' onClick={handleResendEmail}> Resend Confirmation Email </div>}
           </form>
         </div>
-        }
       </div>
     );
 }

@@ -1,10 +1,13 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import Navbar from './components/NavBar';
+
 import Home from './pages/Home';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
-import Navbar from './components/NavBar';
+import Protected from './pages/Protected';
+import ActivationCode from './pages/ActivationCode';
 import RecoverPassword from './pages/RecoverPassword';
 
 function App() {
@@ -16,6 +19,8 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/recoverPassword" element={<RecoverPassword />} />
+          <Route path="/activationCode" element={<ActivationCode />} />
+          <Route path="/protected" element={<Protected />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </div>

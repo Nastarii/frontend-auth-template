@@ -83,8 +83,6 @@ function Signin() {
 
     return (
       <div>
-        { loading ?
-          <img src="loading-spinner.gif" alt="Loader"></img>:
           <div className="flex items-center justify-center min-h-screen bg-white">
             <form className="bg-white p-8 rounded shadow-lg max-w-md z-10 flex flex-col items-start" onSubmit={handleSubmit}>
               <h3 className="text-2xl text-gray-800 font-bold mb-4">Sign In</h3>
@@ -123,9 +121,12 @@ function Signin() {
 
               <button
                 type="submit"
-                className="w-full bg-blue-400 text-white py-2 px-4 rounded-full hover:bg-blue-500 focus:outline-none focus:ring focus:border-blue-300"
+                className="w-full bg-blue-400 text-white py-2 px-4 rounded-full hover:bg-blue-500 focus:outline-none focus:ring focus:border-blue-300 flex items-center justify-center"
               >
-                Sign in
+                { loading ?
+                  <img src="loading-spinner.gif" className='w-8 h-8' alt="Loader"></img>:
+                  "Sign In"
+                }
               </button>
               <Link to="/recoverPassword" className='text-gray-700 mt-3 flex self-end underline'>
                 Forgot your password?
@@ -135,7 +136,6 @@ function Signin() {
               <p className='text-gray-700 mt-3'> Don't you have an account? <Link to="/signup"><p className='underline text-gray-800' >Create here</p></Link></p>
           </form>
         </div>
-        }
       </div>
     );
 }

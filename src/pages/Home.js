@@ -3,7 +3,6 @@ import React from 'react';
 function Home() {
     return (
         <div className="bg-white min-h-screen flex flex-col items-center justify-center">
-            <img src="background.png" alt="Background" className='absolute h-screen w-screen '></img>
             <div className='w-6/12 flex flex-col items-center justify-center z-10'>
                 <img src="animation-rocket.gif" className='w-48' alt="Index gif" />
                 <h1 className="text-3xl font-medium text-gray-800 mb-4">Congratulations! Your authentication app is now installed and ready to be launched!</h1>

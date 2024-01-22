@@ -81,7 +81,6 @@ function Signup() {
     if (response.status === 200) {
       localStorage.setItem('token', responseData.token);
     }
-    console.log(responseData.msg);
     setLoading(false);
   };
 
