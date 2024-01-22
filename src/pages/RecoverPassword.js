@@ -77,9 +77,9 @@ function RecoverPassword() {
     return (
       <div>
           <div className="flex items-center justify-center min-h-screen bg-white">
-            <form className="bg-white p-8 rounded shadow-md max-w-md z-10" onSubmit={handleSubmit}>
+            <form className="bg-white p-8 rounded shadow-md w-96 z-10" onSubmit={handleSubmit}>
               <h3 className="text-2xl text-gray-800 font-bold mb-4 flex self-start">Forgot Password</h3>
-              <div className="mb-4">
+              <div className="w-full mb-4">
                 <label htmlFor="email" className="block text-gray-700 flex self-start">Email:</label>
                 <input
                   type="text"

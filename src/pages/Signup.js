@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/bootstrap.css'
 
 function Signup() {
   const [loading, setLoading] = useState(false);
@@ -24,8 +26,8 @@ function Signup() {
     setAddress(e.target.value);
   }
 
-  const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
+  const handlePhoneChange = (phone) => {
+    setPhone(phone);
   }
 
   const handleUsernameChange = (e) => {
@@ -86,11 +88,10 @@ function Signup() {
 
   return (
     <div>
-    {loading ? <img src="loading-spinner.gif" alt="Loader"></img>:
     <div className="flex items-start justify-center min-h-screen bg-white pt-20">
-      <form className="bg-white p-8 rounded shadow-lg max-w-md z-10 flex flex-col items-start" onSubmit={handleSubmit}>
+      <form className="bg-white p-8 rounded shadow-lg max-w-lg z-10 flex flex-col items-start" onSubmit={handleSubmit}>
         <h3 className="text-2xl text-gray-800 font-bold mb-4">Sign Up</h3>
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="grid grid-cols-2 gap-4 mb-4 w-full">
           <div>
             <label htmlFor="name" className="block text-gray-700 flex self-start">First Name:</label>
             <input
@@ -98,7 +99,7 @@ function Signup() {
               id="name"
               value={name}
               onChange={handleNameChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
             />
           </div>
 
@@ -109,22 +110,35 @@ function Signup() {
               id="lastName"
               value={lastName}
               onChange={handleLastNameChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
             />
           </div>
         </div>
 
-        <div className="w-full mb-4">
-          <label htmlFor="username" className="block text-gray-700 flex self-start">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={handleUsernameChange}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-          />
-        </div>
+        <div className="grid grid-cols-2 gap-4 mb-4 w-full">
+          <div>
+            <label htmlFor="username" className="block text-gray-700 flex self-start">Username:</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={handleUsernameChange}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+            />
+          </div>
 
+          <div>
+            <label htmlFor="companyName" className="block text-gray-700 flex self-start">Company Name:</label>
+            <input
+              type="text"
+              id="companyName"
+              value={companyName}
+              onChange={handleCompanyNameChange}
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+            />
+          </div>
+        </div>
+        
         <div className="w-full mb-4">
           <label htmlFor="address" className="block text-gray-700 flex self-start">Address:</label>
           <input
@@ -132,19 +146,19 @@ function Signup() {
             id="address"
             value={address}
             onChange={handleAddressChange}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
             <label htmlFor="phone" className="block text-gray-700 flex self-start">Phone Number:</label>
-            <input
-              type="number"
-              id="phone"
+            <PhoneInput
+              specialLabel=''
+              inputStyle={{height:'43px', width:'100%', border:'1px solid #e5e7eb'}}  
+              country={'br'}
               value={phone}
               onChange={handlePhoneChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             />
           </div>
 
@@ -155,19 +169,9 @@ function Signup() {
               id="bornDate"
               value={bornDate}
               onChange={handleAgeChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
             />
           </div>
-        </div>
-        <div className="w-full mb-4">
-          <label htmlFor="companyName" className="block text-gray-700 flex self-start">Company Name:</label>
-          <input
-            type="text"
-            id="companyName"
-            value={companyName}
-            onChange={handleCompanyNameChange}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-          />
         </div>
 
         <div className="w-full mb-4">
@@ -177,7 +181,7 @@ function Signup() {
             id="email"
             value={email}
             onChange={handleEmailChange}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
           />
         </div>
 
@@ -188,18 +192,18 @@ function Signup() {
             id="password"
             value={password}
             onChange={handlePasswordChange}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300"
+          className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200 items-center justify-center"
         >
-          Sign Up
+          {loading ? <img src="loading-spinner.gif" className='w-8 h-8' alt="Loader"></img>:"Sign Up"}
         </button>
       </form>
-    </div>}
+    </div>
   </div>
   );
 };

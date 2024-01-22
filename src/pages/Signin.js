@@ -63,6 +63,10 @@ function Signin() {
       if (response.status === 200) {
         localStorage.setItem('token', responseData.token);
         setStatus(true);
+
+        setTimeout(() => {
+            window.location.href = '/protected';
+        }, 1000);
       } 
       
       if (responseData.msg === 'Client email not verified') {
@@ -84,27 +88,27 @@ function Signin() {
     return (
       <div>
           <div className="flex items-center justify-center min-h-screen bg-white">
-            <form className="bg-white p-8 rounded shadow-lg max-w-md z-10 flex flex-col items-start" onSubmit={handleSubmit}>
+            <form className="bg-white p-8 rounded shadow-lg w-96 z-10 flex flex-col items-start" onSubmit={handleSubmit}>
               <h3 className="text-2xl text-gray-800 font-bold mb-4">Sign In</h3>
-              <div className="mb-4">
+              <div className="w-full mb-4">
                 <label htmlFor="usercredential" className="block text-gray-700 flex self-start">Username or Email:</label>
                 <input
                   type="text"
                   id="usercredential"
                   value={usercredential}
                   onChange={handleUsercredentialChange}
-                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
                 />
               </div>
 
-              <div className="mb-4">
+              <div className="w-full mb-4">
                 <label htmlFor="password" className="block text-gray-700 flex self-start">Password:</label>
                 <input
                   type="password"
                   id="password"
                   value={password}
                   onChange={handlePasswordChange}
-                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
                 />
               </div>
 
@@ -133,7 +137,7 @@ function Signin() {
               </Link>
               <p className={status ? 'text-green-500 m-3': 'text-red-500 mt-3'}>{userResponse ? userResponse:''}</p>
               {resendEmailButton && <div className='text-red-500 underline cursor-pointer mb-3' onClick={handleResendEmail}> Resend Confirmation Email </div>}
-              <p className='text-gray-700 mt-3'> Don't you have an account? <Link to="/signup"><p className='underline text-gray-800' >Create here</p></Link></p>
+              <p className='text-gray-700 mt-3 self-center'> Don't you have an account? <Link to="/signup"><p className='underline text-gray-800' >Create here</p></Link></p>
           </form>
         </div>
       </div>
