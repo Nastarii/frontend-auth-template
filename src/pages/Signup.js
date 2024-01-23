@@ -14,6 +14,37 @@ function Signup() {
   const [username, setUsername] = useState('');
   const [bornDate, setBornDate] = useState('');
   const [companyName, setCompanyName] = useState('');
+  const [emailPolicy, setEmailPolicy] = useState(true);
+  const [usernamePolicy, setUsernamePolicy] = useState(true); // [1] Success, [0] Failed
+  const [passwordPolicy, setPasswordPolicy] = useState(true);
+
+  function regexTest(password, type="password") {
+    let regex;
+
+    if (type === "password") {
+      regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;   
+    }
+    else if (type === "email") {
+      regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    }
+    const match = regex.test(password);
+    return match;
+  }
+
+  function handlePasswordOnBlur(e) {
+    const password = e.target.value;
+    setPasswordPolicy(regexTest(password, "password"));
+  }
+
+  function handleEmailPolicyOnBlur(e) {
+    const email = e.target.value;
+    setEmailPolicy(regexTest(email, "email"));
+  }
+
+  function handleUsernamePolicyOnBlur(e) {
+    const username = e.target.value;
+    setUsernamePolicy(username.length > 5);
+  }
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -59,6 +90,19 @@ function Signup() {
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
+    
+    const emailPolicy = regexTest(email, "email")
+    const usernamePolicy = username.length > 5;
+    const passwordPolicy = regexTest(password, "password");
+ 
+    if (!emailPolicy || !usernamePolicy || !passwordPolicy) {
+      setLoading(false);
+      setEmailPolicy(emailPolicy);
+      setUsernamePolicy(usernamePolicy);
+      setPasswordPolicy(passwordPolicy);
+      return;
+    }
+
     const registerData = {
       name: name,
       lastName: lastName,
@@ -95,6 +139,7 @@ function Signup() {
           <div>
             <label htmlFor="name" className="block text-gray-700 flex self-start">First Name:</label>
             <input
+              required
               type="text"
               id="name"
               value={name}
@@ -106,6 +151,7 @@ function Signup() {
           <div>
             <label htmlFor="lastName" className="block text-gray-700 flex self-start">Last Name:</label>
             <input
+              required
               type="text"
               id="lastName"
               value={lastName}
@@ -123,8 +169,10 @@ function Signup() {
               id="username"
               value={username}
               onChange={handleUsernameChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+              onBlur={handleUsernamePolicyOnBlur}
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring ${!usernamePolicy ? 'ring-pink-500 border-pink-500' : 'focus:ring-blue-200'}`}
             />
+            {!usernamePolicy && <p className="text-red-500 text-xs italic flex self-start">Must contain at least 6 digits</p>}
           </div>
 
           <div>
@@ -154,6 +202,7 @@ function Signup() {
           <div>
             <label htmlFor="phone" className="block text-gray-700 flex self-start">Phone Number:</label>
             <PhoneInput
+              required
               specialLabel=''
               inputStyle={{height:'43px', width:'100%', border:'1px solid #e5e7eb'}}  
               country={'br'}
@@ -181,8 +230,10 @@ function Signup() {
             id="email"
             value={email}
             onChange={handleEmailChange}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+            onBlur={handleEmailPolicyOnBlur}
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring ${!emailPolicy ? 'ring-pink-500 border-pink-500' : 'focus:ring-blue-200'}`}
           />
+          {!emailPolicy && <p className="text-red-500 text-xs italic flex self-start">Invalid email</p>}
         </div>
 
         <div className="w-full mb-4">
@@ -192,13 +243,15 @@ function Signup() {
             id="password"
             value={password}
             onChange={handlePasswordChange}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+            onBlur={handlePasswordOnBlur}
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring ${!passwordPolicy ? 'ring-pink-500 border-pink-500' : 'focus:ring-blue-200'}`}
           />
+          {!passwordPolicy && <p className="text-pink-500 text-xs italic flex self-start">Password must contain at least 8 digits, one uppercase, one lowercase and a number</p>}
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200 items-center justify-center"
+          className="w-full bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200 flex items-center justify-center"
         >
           {loading ? <img src="loading-spinner.gif" className='w-8 h-8' alt="Loader"></img>:"Sign Up"}
         </button>
